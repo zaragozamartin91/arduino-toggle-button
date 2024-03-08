@@ -1,6 +1,6 @@
 {
     "name": "ArduinoToggleButton",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A very simple implementation of a toggle button for arduino",
     "keywords": "arduino, toggle, button, simple",
     "repository":
