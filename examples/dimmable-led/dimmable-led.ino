@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "ToggleButton.h"
 
 int READ_PIN=PIN4;
