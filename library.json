@@ -1,0 +1,24 @@
+{
+    "name": "ArduinoToggleButton",
+    "version": "1.0.0",
+    "description": "A very simple implementation of a toggle button for arduino",
+    "keywords": "arduino, toggle, button, simple",
+    "repository":
+    {
+      "type": "git",
+      "url": "https://github.com/zaragozamartin91/arduino-toggle-button"
+    },
+    "authors":
+    [
+      {
+        "name": "Martin Zaragoza",
+        "email": "zaragozamartin91@gmail.com",
+        "url": "https://github.com/zaragozamartin91"
+      }
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/zaragozamartin91/arduino-toggle-button",
+    "dependencies": {},
+    "frameworks": "*",
+    "platforms": "*"
+  }
