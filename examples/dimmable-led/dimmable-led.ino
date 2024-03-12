@@ -14,7 +14,7 @@ void dimLed(int pressCount) {
   v_ledPowerLevel = LED_POWER_LEVELS[powerLevelIndex];
 }
 int readButtonSignal() {return digitalRead(READ_PIN);}
-mz::ToggleButton v_toggle(&dimLed, &readButtonSignal);
+mz::ToggleButton v_toggle(&readButtonSignal, &dimLed);
 
 int v_pressCount = 0;
 

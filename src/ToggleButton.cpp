@@ -1,28 +1,47 @@
 #include "ToggleButton.h"
 
-mz::ToggleButton::ToggleButton(void (*toggleAction)(int), int (*buttonSignalSupplier)()) : 
+void safeCall(void (*callback)(int), int arg) {
+    if(callback != nullptr) { callback(arg); }
+}
+
+
+mz::ToggleButton::ToggleButton(
+    int (*buttonSignalSupplier)(), 
+    void (*toggleCallback)(int),
+    void (*pressCallback)(int),
+    void (*releaseCallback)(int)) : 
+    
     toggleOn{false}, 
     pressCount{0}, 
-    toggleAction{toggleAction},
-    buttonSignalSupplier{buttonSignalSupplier} {};
+    buttonRead{0},
+    buttonSignalSupplier{buttonSignalSupplier},
+    toggleCallback{toggleCallback},
+    pressCallback{pressCallback},
+    releaseCallback{releaseCallback} {};
 
 void mz::ToggleButton::update() {
     // Reads signal from putton
-    int buttonRead = this->buttonSignalSupplier();
+    buttonRead = this->buttonSignalSupplier();
 
     // Button was NOT being pressed and NOW it IS PRESSED
     if(!toggleOn && buttonRead) {
         toggleOn = true;
         pressCount++;
-        this->toggleAction(pressCount);
+        safeCall(toggleCallback, pressCount);
     }
 
     // Button WAS pressed and NOW it is RELEASED
-    if(toggleOn && !buttonRead) {
-        toggleOn = false;
-    }
+    if(toggleOn && !buttonRead) { toggleOn = false; }
+
+
+    if (buttonRead) { safeCall(pressCallback, pressCount); } 
+    else            { safeCall(releaseCallback, pressCount);}
 }
 
 int mz::ToggleButton::getPressCount() {
     return this->pressCount;
+}
+
+int mz::ToggleButton::buttonPressed() {
+    return buttonRead;
 }
