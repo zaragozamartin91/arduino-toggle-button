@@ -17,7 +17,28 @@ mz::ToggleButton::ToggleButton(
     buttonSignalSupplier{buttonSignalSupplier},
     toggleCallback{toggleCallback},
     pressCallback{pressCallback},
-    releaseCallback{releaseCallback} {};
+    releaseCallback{releaseCallback} {}
+
+
+mz::ToggleButton::ToggleButton() : 
+    toggleOn{false}, 
+    pressCount{0}, 
+    buttonRead{0},
+    buttonSignalSupplier{nullptr},
+    toggleCallback{nullptr},
+    pressCallback{nullptr},
+    releaseCallback{nullptr} {}
+    
+
+mz::ToggleButton::ToggleButton(ToggleButton &other) : 
+    toggleOn{false}, 
+    pressCount{0}, 
+    buttonRead{0},
+    buttonSignalSupplier{other.buttonSignalSupplier},
+    toggleCallback{other.toggleCallback},
+    pressCallback{other.pressCallback},
+    releaseCallback{other.releaseCallback} {}
+
 
 void mz::ToggleButton::update() {
     // Reads signal from putton

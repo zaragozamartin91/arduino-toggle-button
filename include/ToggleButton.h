@@ -21,6 +21,12 @@ namespace mz
                 void (*releaseCallback)(int) = nullptr
             );
 
+            /* Empty constructor used for array initialization */
+            ToggleButton();
+
+            /* Copy constructor */
+            ToggleButton(ToggleButton& other);
+
             /* To be called on every loop cycle. @param buttonRead Value of button read. */
             void update();
 
