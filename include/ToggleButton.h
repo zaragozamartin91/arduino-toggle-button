@@ -5,20 +5,24 @@ namespace mz
 {
     class ToggleButton {
         private:
+            int pin; // pin of button signal
             bool toggleOn; // keeps track of toggling
             int pressCount; // counts total press count
             int buttonRead; // signal value
-            int (*buttonSignalSupplier)(); // Supplier of the button signal
+            int (*buttonSignalSupplier)(int pin); // Supplier of the button signal
             void (*toggleCallback)(int); // Action to execute when toggle happens
             void (*pressCallback)(int); // Action to execute while button is being pressed
             void (*releaseCallback)(int); // Action to execute while button is released
 
+            void safeCall(void (*callback)(int), int arg);
+
         public:
             ToggleButton(
-                int (*buttonSignalSupplier)(), 
-                void (*toggleCallback)(int) = nullptr, 
-                void (*pressCallback)(int) = nullptr,
-                void (*releaseCallback)(int) = nullptr
+                int pin, // pin of button signal
+                int (*buttonSignalSupplier)(int pin),  // supplier of button signal
+                void (*toggleCallback)(int) = nullptr,  // function to invoke on toggle
+                void (*pressCallback)(int) = nullptr, // function to call on press
+                void (*releaseCallback)(int) = nullptr // function to call on release
             );
 
             /* Empty constructor used for array initialization */

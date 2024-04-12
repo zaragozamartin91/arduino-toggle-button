@@ -1,16 +1,18 @@
 #include "ToggleButton.h"
 
-void safeCall(void (*callback)(int), int arg) {
+void mz::ToggleButton::safeCall(void (*callback)(int), int arg) {
     if(callback != nullptr) { callback(arg); }
 }
 
 
 mz::ToggleButton::ToggleButton(
-    int (*buttonSignalSupplier)(), 
+    int pin,
+    int (*buttonSignalSupplier)(int pin), 
     void (*toggleCallback)(int),
     void (*pressCallback)(int),
-    void (*releaseCallback)(int)) : 
-    
+    void (*releaseCallback)(int)
+) :     
+    pin{pin},
     toggleOn{false}, 
     pressCount{0}, 
     buttonRead{0},
@@ -21,6 +23,7 @@ mz::ToggleButton::ToggleButton(
 
 
 mz::ToggleButton::ToggleButton() : 
+    pin{-1},
     toggleOn{false}, 
     pressCount{0}, 
     buttonRead{0},
@@ -31,9 +34,10 @@ mz::ToggleButton::ToggleButton() :
     
 
 mz::ToggleButton::ToggleButton(ToggleButton &other) : 
-    toggleOn{false}, 
-    pressCount{0}, 
-    buttonRead{0},
+    pin{other.pin},
+    toggleOn{other.toggleOn}, 
+    pressCount{other.pressCount}, 
+    buttonRead{other.buttonRead},
     buttonSignalSupplier{other.buttonSignalSupplier},
     toggleCallback{other.toggleCallback},
     pressCallback{other.pressCallback},
@@ -42,7 +46,7 @@ mz::ToggleButton::ToggleButton(ToggleButton &other) :
 
 void mz::ToggleButton::update() {
     // Reads signal from putton
-    buttonRead = this->buttonSignalSupplier();
+    buttonRead = this->buttonSignalSupplier(pin);
 
     // Button was NOT being pressed and NOW it IS PRESSED
     if(!toggleOn && buttonRead) {

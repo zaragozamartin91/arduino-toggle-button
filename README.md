@@ -8,8 +8,8 @@ Example usage of toggle button to control a dimmable led:
 #include <Arduino.h>
 #include "ToggleButton.h"
 
-int READ_PIN=PIN4;
-int LED_PIN=PIN3;
+int READ_PIN=PIN6;
+int LED_PIN=9;
 
 int LED_POWER_LEVELS[] = {0, 1, 2, 4, 8, 16, 32, 64, 128, 255};
 int LED_POWER_LEVELS_L = sizeof(LED_POWER_LEVELS) / sizeof(LED_POWER_LEVELS[0]);
@@ -21,8 +21,8 @@ void dimLed(int pressCount) {
   int powerLevelIndex = pressCount % LED_POWER_LEVELS_L;
   v_ledPowerLevel = LED_POWER_LEVELS[powerLevelIndex];
 }
-int readButtonSignal() {return digitalRead(READ_PIN);}
-mz::ToggleButton v_toggle(&dimLed, &readButtonSignal);
+int readButtonSignal(int pin) {return digitalRead(pin);}
+mz::ToggleButton v_toggle(READ_PIN, &readButtonSignal, &dimLed);
 
 int v_pressCount = 0;
 
