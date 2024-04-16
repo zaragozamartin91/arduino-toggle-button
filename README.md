@@ -1,5 +1,7 @@
 # arduino-toggle-button
 
+[![PlatformIO Registry](https://badges.registry.platformio.org/packages/zaragozamartin91/library/ArduinoToggleButton.svg)](https://registry.platformio.org/libraries/zaragozamartin91/ArduinoToggleButton)
+
 Allows for toggling of components based on push buttons.
 
 Example usage of toggle button to control a dimmable led:
